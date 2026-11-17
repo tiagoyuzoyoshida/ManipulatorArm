@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="manipulator_arm">
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 -0.07000000000000001" rpy="0 0 0" />
+      <mass value="25" />
+      <inertia ixx="0.6" ixy="0" ixz="0" iyy="0.9" iyz="0" izz="1.1" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/base_mobile.stl" />
+      </geometry>
+      <material name="dark_chassis">
+        <color rgba="0.18 0.2 0.23 1" />
+      </material>
+    </visual>
+  </link>
+  <link name="link_1">
+    <inertial>
+      <origin xyz="0 0 -0.2" rpy="0 0 0" />
+      <mass value="8" />
+      <inertia ixx="0.12" ixy="0" ixz="0" iyy="0.12" iyz="0" izz="0.04" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/link_1.stl" />
+      </geometry>
+      <material name="anodized_slate">
+        <color rgba="0.26 0.3 0.35 1" />
+      </material>
+    </visual>
+  </link>
+  <link name="link_2">
+    <inertial>
+      <origin xyz="0 0 0.175" rpy="0 0 0" />
+      <mass value="6" />
+      <inertia ixx="0.08" ixy="0" ixz="0" iyy="0.08" iyz="0" izz="0.02" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/link_2.stl" />
+      </geometry>
+      <material name="petro_blue">
+        <color rgba="0.14 0.38 0.62 1" />
+      </material>
+    </visual>
+  </link>
+  <link name="link_3">
+    <inertial>
+      <origin xyz="0 0 -0.125" rpy="0 0 0" />
+      <mass value="4" />
+      <inertia ixx="0.03" ixy="0" ixz="0" iyy="0.03" iyz="0" izz="0.01" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/link_3.stl" />
+      </geometry>
+      <material name="machined_steel">
+        <color rgba="0.76 0.79 0.83 1" />
+      </material>
+    </visual>
+  </link>
+  <link name="link_4">
+    <inertial>
+      <origin xyz="0 0 -0.075" rpy="0 0 0" />
+      <mass value="2" />
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.005" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/link_4.stl" />
+      </geometry>
+      <material name="anodized_slate">
+        <color rgba="0.26 0.3 0.35 1" />
+      </material>
+    </visual>
+  </link>
+  <link name="ee_link">
+    <inertial>
+      <origin xyz="0 0 0.03" rpy="0 0 0" />
+      <mass value="0.5" />
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/ee_gripper.stl" />
+      </geometry>
+      <material name="gripper_dark">
+        <color rgba="0.16 0.18 0.21 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="joint_1" type="revolute">
+    <parent link="base_link" />
+    <child link="link_1" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="200.0" velocity="2.0" />
+  </joint>
+  <joint name="joint_2" type="revolute">
+    <parent link="link_1" />
+    <child link="link_2" />
+    <origin xyz="0 0 0.4" rpy="1.570796326794897 0.5235987755982987 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-2.356194490192345" upper="2.356194490192345" effort="200.0" velocity="2.0" />
+  </joint>
+  <joint name="joint_3" type="prismatic">
+    <parent link="link_2" />
+    <child link="link_3" />
+    <origin xyz="0 0.6 0" rpy="-1.570796326794897 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="0" upper="0.25" effort="500.0" velocity="0.5" />
+  </joint>
+  <joint name="joint_4" type="revolute">
+    <parent link="link_3" />
+    <child link="link_4" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="200.0" velocity="2.0" />
+  </joint>
+  <joint name="ee_fixed_joint" type="fixed">
+    <parent link="link_4" />
+    <child link="ee_link" />
+    <origin xyz="0 0 0.15" rpy="0 0 0" />
+  </joint>
+</robot>

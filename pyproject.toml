@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "manipulator-arm"
+version = "0.1.0"
+description = "4-DOF R-R-P-R manipulator kinematics, simulation, and dynamics"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "roboticstoolbox-python",
+    "spatialmath-python",
+    "trimesh",
+    "swift-sim",
+]
+
+[project.scripts]
+manipulator-arm = "manipulator_arm.run_simulation:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["manipulator_arm"]
